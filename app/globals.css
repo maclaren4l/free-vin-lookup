@@ -1,0 +1,125 @@
+@import "tailwindcss";
+
+:root {
+  --brand-accent: #6366f1;
+  --brand-accent-soft: rgba(99, 102, 241, 0.14);
+}
+
+@theme {
+  --color-ink: #05060a;
+  --color-ink-2: #0a0c14;
+  --color-mist: #e7eaf3;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-display), var(--font-inter), sans-serif;
+  --font-mono: var(--font-mono), ui-monospace, monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  min-height: 100vh;
+  color: var(--color-mist);
+  background: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Ambient background: layered radial glows + subtle grid */
+.app-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  background:
+    radial-gradient(60rem 60rem at 12% -10%, var(--brand-accent-soft), transparent 60%),
+    radial-gradient(50rem 50rem at 100% 0%, rgba(56, 189, 248, 0.10), transparent 55%),
+    radial-gradient(60rem 40rem at 50% 120%, rgba(168, 85, 247, 0.10), transparent 60%),
+    var(--color-ink);
+  transition: background 600ms ease;
+}
+
+.app-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 44px 44px;
+  mask-image: radial-gradient(circle at 50% 30%, black, transparent 75%);
+}
+
+/* Glass surface */
+.glass {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.05),
+    rgba(255, 255, 255, 0.02)
+  );
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(18px) saturate(140%);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+}
+
+.glass-hover {
+  transition: border-color 220ms ease, transform 220ms ease, box-shadow 220ms ease;
+}
+.glass-hover:hover {
+  border-color: color-mix(in srgb, var(--brand-accent) 45%, transparent);
+  box-shadow: 0 12px 40px -18px var(--brand-accent);
+}
+
+.accent-text {
+  color: var(--brand-accent);
+}
+
+.accent-ring:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--color-ink), 0 0 0 4px var(--brand-accent);
+}
+
+::selection {
+  background: color-mix(in srgb, var(--brand-accent) 40%, transparent);
+}
+
+/* Thin scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+}
+
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+.shimmer {
+  position: relative;
+  overflow: hidden;
+}
+.shimmer::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.08),
+    transparent
+  );
+  animation: shimmer 1.6s infinite;
+}
