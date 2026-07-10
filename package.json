@@ -1,7 +1,15 @@
 {
-  "name": "vin-coder",
+  "name": "free-vin-lookup",
   "version": "0.1.0",
   "private": true,
+  "description": "Decode any VIN into full specifications, safety recalls, and NCAP ratings, using only free, keyless NHTSA and Wikimedia data.",
+  "author": "Umair Ahmed",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/maclaren4l/free-vin-lookup.git"
+  },
+  "homepage": "https://free-vin-lookup.vercel.app",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
