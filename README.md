@@ -8,10 +8,12 @@ powered **entirely by free, open data** with **no API keys and no paywalls**.
 
 ## Features
 
+- **Profile-card results view** — a portrait vehicle photo, quick-stat pills, a safety-rating
+  gauge, and dark checklist cards for equipment and options, in a warm card-based layout.
 - **Full spec decode** — engine, drivetrain, body, dimensions, plant of manufacture, and more.
 - **Standard & safety equipment** — airbags, ABS/ESC/TPMS, and ADAS features.
-- **Available options** — equipment NHTSA lists as *optional* (not standard), broken out as tiles.
-- **Safety recalls** — open manufacturer recalls with summary, consequence, and remedy.
+- **Available options** — equipment NHTSA lists as *optional* (not standard), broken out separately.
+- **Safety recalls** — open manufacturer recalls in a timeline, with summary, consequence, and remedy.
 - **NHTSA safety ratings** — official NCAP 5-star crash-test results.
 - **Representative photo** — closest-match image from Wikimedia Commons, with attribution.
 - **Per-brand theming** — the UI re-colors to each make (Polestar, Ford, Tesla, BMW, …).
@@ -57,10 +59,10 @@ app/
   api/decode|image|recalls|safety/route.ts   # server proxies to free APIs
 components/
   vin-search.tsx        # input, validation, sample chips, recent searches
-  results/              # result shell, spec sections, options tiles, recalls, ratings, image
+  profile/               # profile hero, stat pills, safety gauge, checklists, recall timeline
 lib/
   vin.ts                # 17-char + check-digit validation
-  nhtsa.ts, normalize.ts, recalls.ts, safety.ts, image.ts, brands.ts
+  nhtsa.ts, normalize.ts, recalls.ts, safety.ts, image.ts, brands.ts, profile-stats.ts
 ```
 
 ## License
