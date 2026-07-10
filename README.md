@@ -6,6 +6,10 @@ powered **entirely by free, open data** with **no API keys and no paywalls**.
 
 ![Next.js](https://img.shields.io/badge/Next.js-15-black) ![TypeScript](https://img.shields.io/badge/TypeScript-5-blue) ![Tailwind CSS](https://img.shields.io/badge/Tailwind-4-38bdf8) ![License: MIT](https://img.shields.io/badge/License-MIT-green)
 
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fmaclaren4l%2Ffree-vin-lookup)
+
+> One click deploys a copy to Vercel — no API keys or environment variables required.
+
 ## Features
 
 - **Full spec decode** — engine, drivetrain, body, dimensions, plant of manufacture, and more.
