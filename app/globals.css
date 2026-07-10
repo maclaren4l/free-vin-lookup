@@ -123,3 +123,45 @@ body {
   );
   animation: shimmer 1.6s infinite;
 }
+
+/* ---------------------------------------------------------------------- */
+/* "Profile" theme — light, warm alternate to the dark glass dashboard.   */
+/* Scoped entirely under .theme-profile so it never leaks into the        */
+/* default dark UI. One accent (the existing brand color) is reused.      */
+/* ---------------------------------------------------------------------- */
+.theme-profile {
+  --profile-ink: #17130f;
+  --profile-ink-soft: rgba(23, 19, 15, 0.58);
+  --profile-ink-faint: rgba(23, 19, 15, 0.38);
+  --profile-card: #fffdf8;
+  --profile-card-border: rgba(23, 19, 15, 0.07);
+  --profile-dark-card: #18140f;
+  --profile-dark-card-text: #f4efe4;
+  --profile-dark-card-text-soft: rgba(244, 239, 228, 0.55);
+  color: var(--profile-ink);
+}
+
+.profile-bg {
+  background:
+    radial-gradient(120% 90% at 100% 0%, color-mix(in srgb, var(--brand-accent) 22%, transparent), transparent 60%),
+    radial-gradient(90% 70% at 0% 100%, rgba(255, 214, 130, 0.55), transparent 60%),
+    linear-gradient(160deg, #f8f4ea 0%, #f4ecd8 55%, #f7e6b8 100%);
+}
+
+.profile-card {
+  background: var(--profile-card);
+  border: 1px solid var(--profile-card-border);
+  box-shadow: 0 24px 48px -32px rgba(70, 50, 10, 0.35);
+}
+
+.profile-dark-card {
+  background: var(--profile-dark-card);
+  color: var(--profile-dark-card-text);
+  box-shadow: 0 24px 48px -28px rgba(0, 0, 0, 0.55);
+}
+
+.profile-pill {
+  background: var(--profile-card);
+  border: 1px solid var(--profile-card-border);
+  color: var(--profile-ink);
+}

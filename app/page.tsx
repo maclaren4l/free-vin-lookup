@@ -4,7 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { ScanLine, AlertCircle } from "lucide-react";
 import { VinSearch } from "@/components/vin-search";
-import { ResultShell } from "@/components/results/result-shell";
+import { ProfileShell } from "@/components/profile/profile-shell";
 import { resolveBrand, GENERIC_BRAND } from "@/lib/brands";
 import type { DecodeResult, RecallsData, SafetyData, VehicleImage } from "@/lib/types";
 
@@ -210,8 +210,13 @@ export default function Home() {
           )}
 
           {!loading && result && (
-            <motion.div key={result.vin} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-              <ResultShell
+            <motion.div
+              key={result.vin}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+            >
+              <ProfileShell
                 result={result}
                 image={image}
                 imageLoading={imageLoading}
