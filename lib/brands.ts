@@ -77,6 +77,19 @@ export function brandMonogram(brand: Brand): string {
   return (words[0][0] + words[1][0]).toUpperCase();
 }
 
+/**
+ * Some manufacturers (e.g. Polestar: Model="Polestar 2") repeat the brand
+ * name inside NHTSA's Model field. Avoid rendering it twice ("Polestar
+ * Polestar 2") by dropping the brand prefix when the model already leads
+ * with it.
+ */
+export function vehicleHeadline(modelYear: string, brandName: string, model: string): string {
+  const trimmedModel = model.trim();
+  const modelLeadsWithBrand = trimmedModel.toLowerCase().startsWith(brandName.trim().toLowerCase());
+  const parts = modelLeadsWithBrand ? [modelYear, trimmedModel] : [modelYear, brandName, trimmedModel];
+  return parts.filter(Boolean).join(" ");
+}
+
 function titleCase(s: string): string {
   return s
     .toLowerCase()

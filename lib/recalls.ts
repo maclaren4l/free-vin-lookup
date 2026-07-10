@@ -50,18 +50,27 @@ export async function fetchRecalls(
   return { count: rows.length, recalls: rows.map((r) => r.recall) };
 }
 
+// NHTSA sends ReportReceivedDate as DD/MM/YYYY (e.g. "24/03/2021"), which
+// JS's Date constructor cannot parse (it assumes MM/DD/YYYY for slash-form
+// strings and silently returns Invalid Date). Parse it explicitly.
+function parseNhtsaDate(raw: string | undefined): Date | null {
+  if (!raw) return null;
+  const match = raw.trim().match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
+  if (match) {
+    const [, dd, mm, yyyy] = match;
+    const d = new Date(Number(yyyy), Number(mm) - 1, Number(dd));
+    return Number.isNaN(d.getTime()) ? null : d;
+  }
+  const d = new Date(raw);
+  return Number.isNaN(d.getTime()) ? null : d;
+}
+
 function parseTs(raw: string | undefined): number {
-  if (!raw) return 0;
-  const t = new Date(raw).getTime();
-  return Number.isNaN(t) ? 0 : t;
+  return parseNhtsaDate(raw)?.getTime() ?? 0;
 }
 
 function formatDate(raw: string | undefined): string {
-  if (!raw) return "";
-  // NHTSA returns e.g. "24/09/2015" or ISO — keep it simple and readable.
-  const iso = new Date(raw);
-  if (!Number.isNaN(iso.getTime())) {
-    return iso.toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" });
-  }
-  return raw.trim();
+  const d = parseNhtsaDate(raw);
+  if (!d) return (raw ?? "").trim();
+  return d.toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" });
 }
