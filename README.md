@@ -69,6 +69,11 @@ lib/
   nhtsa.ts, normalize.ts, recalls.ts, safety.ts, image.ts, brands.ts, profile-stats.ts
 ```
 
+## Contributing
+
+Contributions are welcome — see [CONTRIBUTING.md](CONTRIBUTING.md) for local setup and the
+project's one hard rule: no fabricated data.
+
 ## License
 
 MIT
