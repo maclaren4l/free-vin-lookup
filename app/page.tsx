@@ -7,6 +7,7 @@ import { VinSearch } from "@/components/vin-search";
 import { ProfileShell } from "@/components/profile/profile-shell";
 import { resolveBrand, GENERIC_BRAND } from "@/lib/brands";
 import type { DecodeResult, RecallsData, SafetyData, VehicleImage } from "@/lib/types";
+import type { EconomyData } from "@/lib/enrich";
 
 const RECENT_KEY = "vin-recent";
 
@@ -27,6 +28,8 @@ export default function Home() {
   const [recallsLoading, setRecallsLoading] = useState(false);
   const [safety, setSafety] = useState<SafetyData | null>(null);
   const [safetyLoading, setSafetyLoading] = useState(false);
+  const [economy, setEconomy] = useState<EconomyData | null>(null);
+  const [economyLoading, setEconomyLoading] = useState(false);
   const [recent, setRecent] = useState<string[]>([]);
   const requestId = useRef(0);
 
@@ -55,6 +58,7 @@ export default function Home() {
       setImage(null);
       setRecalls(null);
       setSafety(null);
+      setEconomy(null);
 
       try {
         const res = await fetch(`/api/decode?vin=${encodeURIComponent(vin)}`);
@@ -112,6 +116,17 @@ export default function Home() {
           .catch(() => {})
           .finally(() => {
             if (id === requestId.current) setSafetyLoading(false);
+          });
+
+        setEconomyLoading(true);
+        fetch(`/api/enrich?${q.toString()}&trim=${encodeURIComponent(decoded.trim)}`)
+          .then((r) => r.json())
+          .then((data) => {
+            if (id === requestId.current) setEconomy((data?.economy as EconomyData) ?? null);
+          })
+          .catch(() => {})
+          .finally(() => {
+            if (id === requestId.current) setEconomyLoading(false);
           });
       } catch {
         if (id === requestId.current) {
@@ -230,6 +245,8 @@ export default function Home() {
                 recallsLoading={recallsLoading}
                 safety={safety}
                 safetyLoading={safetyLoading}
+                economy={economy}
+                economyLoading={economyLoading}
               />
             </motion.div>
           )}

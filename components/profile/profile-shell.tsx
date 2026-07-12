@@ -7,11 +7,13 @@ import type {
   SafetyData,
   VehicleImage as VehicleImageType,
 } from "@/lib/types";
+import type { EconomyData } from "@/lib/enrich";
 import { resolveBrand, vehicleHeadline } from "@/lib/brands";
 import { pickQuickStats } from "@/lib/profile-stats";
 import { ProfileHero } from "./profile-hero";
 import { StatPills } from "./stat-pills";
 import { SafetyGauge } from "./safety-gauge";
+import { EfficiencyCard } from "./efficiency-card";
 import { ChecklistCard } from "./checklist-card";
 import { RecallTimeline } from "./recall-timeline";
 import { ProfileSpecCard } from "./profile-spec-card";
@@ -24,6 +26,8 @@ export function ProfileShell({
   recallsLoading,
   safety,
   safetyLoading,
+  economy,
+  economyLoading,
 }: {
   result: DecodeResult;
   image: VehicleImageType | null;
@@ -32,6 +36,8 @@ export function ProfileShell({
   recallsLoading: boolean;
   safety: SafetyData | null;
   safetyLoading: boolean;
+  economy: EconomyData | null;
+  economyLoading: boolean;
 }) {
   const brand = resolveBrand(result.make);
   const headline = vehicleHeadline(result.modelYear, brand.name, result.model);
@@ -84,6 +90,8 @@ export function ProfileShell({
             ))}
           </div>
 
+          <EfficiencyCard economy={economy} loading={economyLoading} delay={0.08} />
+
           <SafetyGauge data={safety} loading={safetyLoading} delay={0.1} />
 
           <div className="grid sm:grid-cols-2 gap-5">
@@ -124,8 +132,8 @@ export function ProfileShell({
       </div>
 
       <p className="text-center text-xs pt-6" style={{ color: "var(--profile-ink-faint)" }}>
-        Specifications decoded from the free NHTSA vPIC database, recalls and ratings from NHTSA.
-        Imagery from Wikimedia Commons. No API keys, no paywalls.
+        Specifications from the free NHTSA vPIC database; recalls and safety ratings from NHTSA;
+        EPA efficiency from fueleconomy.gov; imagery from Wikimedia Commons. No API keys, no paywalls.
       </p>
     </div>
   );

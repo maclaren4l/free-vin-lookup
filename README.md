@@ -19,6 +19,8 @@ powered **entirely by free, open data** with **no API keys and no paywalls**.
 - **Available options** — equipment NHTSA lists as *optional* (not standard), broken out separately.
 - **Safety recalls** — open manufacturer recalls in a timeline, with summary, consequence, and remedy.
 - **NHTSA safety ratings** — official NCAP 5-star crash-test results.
+- **EPA efficiency** — MPG/MPGe, EV range, energy cost, and CO₂ from fueleconomy.gov, via a
+  pluggable enrichment layer (`lib/enrich/`) that a paid per-VIN options provider can drop into.
 - **Representative photo** — closest-match image from Wikimedia Commons, with attribution.
 - **Per-brand theming** — the UI re-colors to each make (Polestar, Ford, Tesla, BMW, …).
 - Sample VINs, recent-search history, live validation with VIN check-digit verification.
@@ -37,6 +39,7 @@ free.** Every equipment and options section is labeled accordingly. No fabricate
 | VIN specifications | [NHTSA vPIC](https://vpic.nhtsa.dot.gov/api/) |
 | Safety recalls | [NHTSA Recalls API](https://www.nhtsa.gov/nhtsa-datasets-and-apis) |
 | Crash-test ratings | [NHTSA NCAP Safety Ratings API](https://api.nhtsa.gov/SafetyRatings) |
+| Fuel economy / EV range | [EPA fueleconomy.gov](https://www.fueleconomy.gov/feg/ws/) |
 | Vehicle imagery | [Wikimedia Commons](https://commons.wikimedia.org/) |
 
 ## Tech stack
@@ -60,13 +63,14 @@ No environment variables or API keys are required.
 ```
 app/
   page.tsx              # hero + search + results orchestration
-  api/decode|image|recalls|safety/route.ts   # server proxies to free APIs
+  api/decode|image|recalls|safety|enrich/route.ts   # server proxies to free APIs
 components/
   vin-search.tsx        # input, validation, sample chips, recent searches
-  profile/               # profile hero, stat pills, safety gauge, checklists, recall timeline
+  profile/               # profile hero, stat pills, efficiency + safety cards, checklists, timeline
 lib/
   vin.ts                # 17-char + check-digit validation
   nhtsa.ts, normalize.ts, recalls.ts, safety.ts, image.ts, brands.ts, profile-stats.ts
+  enrich/                # pluggable enrichment adapters (fueleconomy.gov; paid options later)
 ```
 
 ## License
