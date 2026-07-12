@@ -20,7 +20,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.variable} ${display.variable} ${mono.variable}`}>
-        <div className="app-bg" id="app-bg" />
+        <div className="page-bg profile-bg" />
         {children}
       </body>
     </html>

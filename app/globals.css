@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 :root {
-  --brand-accent: #6366f1;
-  --brand-accent-soft: rgba(99, 102, 241, 0.14);
+  --brand-accent: #C99700;
+  --brand-accent-soft: rgba(201, 151, 0, 0.14);
 }
 
 @theme {
@@ -26,36 +26,18 @@ body {
 
 body {
   min-height: 100vh;
-  color: var(--color-mist);
-  background: var(--color-ink);
+  color: var(--profile-ink);
+  background: transparent;
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
 
-/* Ambient background: layered radial glows + subtle grid */
-.app-bg {
+/* Fixed full-viewport background layer (pair with .profile-bg) */
+.page-bg {
   position: fixed;
   inset: 0;
   z-index: -1;
-  overflow: hidden;
-  background:
-    radial-gradient(60rem 60rem at 12% -10%, var(--brand-accent-soft), transparent 60%),
-    radial-gradient(50rem 50rem at 100% 0%, rgba(56, 189, 248, 0.10), transparent 55%),
-    radial-gradient(60rem 40rem at 50% 120%, rgba(168, 85, 247, 0.10), transparent 60%),
-    var(--color-ink);
-  transition: background 600ms ease;
-}
-
-.app-bg::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image:
-    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-  background-size: 44px 44px;
-  mask-image: radial-gradient(circle at 50% 30%, black, transparent 75%);
 }
 
 /* Glass surface */
@@ -84,7 +66,7 @@ body {
 
 .accent-ring:focus-visible {
   outline: none;
-  box-shadow: 0 0 0 2px var(--color-ink), 0 0 0 4px var(--brand-accent);
+  box-shadow: 0 0 0 2px var(--ring-offset, #18140f), 0 0 0 4px var(--brand-accent);
 }
 
 ::selection {
@@ -97,7 +79,7 @@ body {
   height: 10px;
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.12);
+  background: rgba(23, 19, 15, 0.18);
   border-radius: 999px;
 }
 
@@ -124,11 +106,22 @@ body {
   animation: shimmer 1.6s infinite;
 }
 
+/* Light-surface shimmer: apply alongside .shimmer on cream/light cards */
+.shimmer-light::after {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(23, 19, 15, 0.06),
+    transparent
+  );
+}
+
 /* ---------------------------------------------------------------------- */
-/* "Profile" theme — light, warm alternate to the dark glass dashboard.   */
-/* Scoped entirely under .theme-profile so it never leaks into the        */
-/* default dark UI. One accent (the existing brand color) is reused.      */
+/* "Profile" theme — the warm, cream design language of the whole app.    */
+/* Custom properties live on :root so the landing page, console card and  */
+/* results all share them; .theme-profile kept for backward compat.       */
 /* ---------------------------------------------------------------------- */
+:root,
 .theme-profile {
   --profile-ink: #17130f;
   --profile-ink-soft: rgba(23, 19, 15, 0.58);

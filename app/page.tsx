@@ -132,43 +132,46 @@ export default function Home() {
 
   return (
     <main className="mx-auto max-w-5xl px-4 sm:px-6 py-10 sm:py-16">
-      {/* Hero */}
-      <motion.header
-        initial={{ opacity: 0, y: -10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        className="text-center mb-8"
-      >
-        <div className="inline-flex items-center gap-2 glass rounded-full px-3 py-1 text-xs text-white/60 mb-5">
-          <ScanLine className="h-3.5 w-3.5 accent-text" />
-          Powered by free, open NHTSA &amp; Wikimedia data — no API keys
-        </div>
-        <h1 className="font-display text-4xl sm:text-6xl font-bold tracking-tight">
-          Decode any{" "}
-          <span
-            className="bg-clip-text text-transparent"
-            style={{
-              backgroundImage:
-                "linear-gradient(120deg, var(--brand-accent), #ffffff 90%)",
-            }}
-          >
-            VIN
-          </span>
-        </h1>
-        <p className="mt-4 text-white/50 max-w-xl mx-auto">
-          Paste a Vehicle Identification Number to reveal full specifications, standard
-          equipment, and a representative photo — instantly, in your browser.
-        </p>
-      </motion.header>
+      {/* Dark console: hero + search on one espresso card */}
+      <div className="profile-dark-card rounded-[32px] px-5 py-8 sm:px-10 sm:py-12 max-w-4xl mx-auto">
+        {/* Hero */}
+        <motion.header
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="text-center mb-8"
+        >
+          <div className="inline-flex items-center gap-2 glass rounded-full px-3 py-1 text-xs text-white/60 mb-5">
+            <ScanLine className="h-3.5 w-3.5 accent-text" />
+            Powered by free, open NHTSA &amp; Wikimedia data — no API keys
+          </div>
+          <h1 className="font-display text-4xl sm:text-6xl font-bold tracking-tight">
+            Decode any{" "}
+            <span
+              className="bg-clip-text text-transparent"
+              style={{
+                backgroundImage:
+                  "linear-gradient(120deg, var(--brand-accent), #ffffff 90%)",
+              }}
+            >
+              VIN
+            </span>
+          </h1>
+          <p className="mt-4 text-white/50 max-w-xl mx-auto">
+            Paste a Vehicle Identification Number to reveal full specifications, standard
+            equipment, and a representative photo — instantly, in your browser.
+          </p>
+        </motion.header>
 
-      {/* Search */}
-      <div className="max-w-3xl mx-auto">
-        <VinSearch
-          onSearch={search}
-          loading={loading}
-          recent={recent}
-          onClearRecent={clearRecent}
-        />
+        {/* Search */}
+        <div className="max-w-3xl mx-auto">
+          <VinSearch
+            onSearch={search}
+            loading={loading}
+            recent={recent}
+            onClearRecent={clearRecent}
+          />
+        </div>
       </div>
 
       {/* Results / states */}
@@ -182,12 +185,12 @@ export default function Home() {
               exit={{ opacity: 0 }}
               className="space-y-4"
             >
-              <div className="glass rounded-2xl h-28 shimmer" />
+              <div className="profile-card rounded-2xl h-28 shimmer shimmer-light" />
               <div className="grid lg:grid-cols-3 gap-4">
-                <div className="glass rounded-2xl h-64 shimmer" />
+                <div className="profile-card rounded-2xl h-64 shimmer shimmer-light" />
                 <div className="lg:col-span-2 grid sm:grid-cols-2 gap-4">
-                  <div className="glass rounded-2xl h-52 shimmer" />
-                  <div className="glass rounded-2xl h-52 shimmer" />
+                  <div className="profile-card rounded-2xl h-52 shimmer shimmer-light" />
+                  <div className="profile-card rounded-2xl h-52 shimmer shimmer-light" />
                 </div>
               </div>
             </motion.div>
@@ -199,12 +202,15 @@ export default function Home() {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0 }}
-              className="glass rounded-2xl p-6 flex items-start gap-3 max-w-2xl mx-auto border border-rose-400/20"
+              className="profile-card rounded-2xl p-6 flex items-start gap-3 max-w-2xl mx-auto border border-rose-700/25"
+              style={{ borderColor: "rgba(190, 18, 60, 0.25)" }}
             >
-              <AlertCircle className="h-5 w-5 text-rose-400 shrink-0 mt-0.5" />
+              <AlertCircle className="h-5 w-5 text-rose-700 shrink-0 mt-0.5" />
               <div>
-                <p className="font-medium text-rose-100">Couldn&apos;t decode that VIN</p>
-                <p className="text-sm text-white/55 mt-1">{error}</p>
+                <p className="font-medium text-rose-900">Couldn&apos;t decode that VIN</p>
+                <p className="text-sm mt-1" style={{ color: "var(--profile-ink-soft)" }}>
+                  {error}
+                </p>
               </div>
             </motion.div>
           )}

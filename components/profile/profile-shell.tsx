@@ -43,7 +43,7 @@ export function ProfileShell({
   const lowerSections = result.sections.filter((s) => s.id !== "identity" && s.id !== "powertrain");
 
   return (
-    <div className="theme-profile profile-bg rounded-[32px] p-4 sm:p-6 lg:p-8 overflow-hidden">
+    <div className="theme-profile">
       {result.warnings.length > 0 && (
         <div
           className="rounded-2xl border p-4 flex gap-3 mb-5"

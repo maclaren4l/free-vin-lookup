@@ -15,7 +15,7 @@ export interface Brand {
 export const GENERIC_BRAND: Brand = {
   id: "generic",
   name: "Vehicle",
-  accent: "#6366f1",
+  accent: "#C99700",
   group: "Other",
 };
 
